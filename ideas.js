@@ -31,10 +31,15 @@ if (Meteor.isClient) {
     'click #add-idea' : function(e) {
       var problem = $('#problem-name').val();
       var solution = $('#solution').val();
-      Problems.insert({name: problem, owner: this.userId,  solution: [{txt: solution, user: this.userId}], votes: 0});
-      $('#problem-name').val('');
-      $('#solution').val('');
-      $('.add-problem').hide('fast');
+      if(problem.trim() == '' || solution.trim() == '') {
+        alert("Enter something");
+      }
+      else {
+        Problems.insert({name: problem, owner: this.userId,  solution: [{txt: solution, user: this.userId}], votes: 0}); 
+        $('#problem-name').val('');
+        $('#solution').val('');
+        $('.add-problem').hide('fast');
+      }
       return false;
     }
   });
