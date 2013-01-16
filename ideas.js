@@ -6,6 +6,19 @@ if (Meteor.isClient) {
 
   Meteor.subscribe("problems");
 
+
+  Template.problem_info.user_name = function(userid) {
+    if(userid) {
+      var user_list = Meteor.users.find(userid).fetch();
+      if(user_list.length > 0 )
+        return user_list[0]['profile']['name']
+      else
+        return '' 
+    } else {
+      return ''
+    }
+  }
+
   Template.problems_list.problems =  function() {
     if(Meteor.userId()) {
       return Problems.find({}, {sort: {votes: -1, name: 1}});  
@@ -18,7 +31,7 @@ if (Meteor.isClient) {
     'click #add-idea' : function(e) {
       var problem = $('#problem-name').val();
       var solution = $('#solution').val();
-      Problems.insert({name: problem, owner: this.userId,  solution: [solution], votes: 0});
+      Problems.insert({name: problem, owner: this.userId,  solution: [{txt: solution, user: this.userId}], votes: 0});
       $('#problem-name').val('');
       $('#solution').val('');
       $('.add-problem').hide('fast');
@@ -41,7 +54,7 @@ if (Meteor.isClient) {
         var id = ($(e.target).parent().parent().parent().attr('id'))
         var contents = $(e.target).val()
         if(contents.trim() != "") {
-          Problems.update(id, {$push: {solution: contents}});
+          Problems.update(id, {$push: {solution: {txt: contents, user: Meteor.userId()}}});
           $('#' + id).find('.add-new-comment').hide();
         }
       }

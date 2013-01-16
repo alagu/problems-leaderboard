@@ -69,7 +69,13 @@
     </div>
     <dt>{{name}}</dt>
     {{#each solution}}
-      <dd><i class="icon-chevron-right"></i> <div class="content">{{this}}</div></dd>
+      <dd>
+        <i class="icon-chevron-right"></i>
+        <div class="content">
+          {{txt}}
+          <span class="author"> by {{ user_name user }} </span>
+        </div>
+      </dd>
     {{/each}}
     <dd class="adder-wrap"><button class="btn btn-small adder"><i class="icon-plus"></i></button></dd>
     <dd class="add-new-comment hide">
