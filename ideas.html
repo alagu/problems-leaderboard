@@ -1,0 +1,86 @@
+
+<head>
+  <title>Problems</title>
+</head>
+<body>
+  <div class="container-narrow">
+
+    {{> header}}
+    {{> new_problem }}
+    <hr>
+
+    {{> problems_list}}
+  </div>
+
+
+</body>
+
+<template name="header">
+  {{loginButtons}}
+  <div class="masthead">
+    <ul class="nav nav-pills pull-right">
+      <li class="active"><a href="#" id="add-problem-btn">Add a problem</a></li>
+    </ul>
+    <h3 class="muted">Problems</h3>
+  </div>
+</template>
+
+<template name="problems_list">
+
+  <dl class="problems-list">
+  {{#each problems}}
+    {{> problem_info }}
+  {{else}}
+    No problems yet.
+  {{/each}}
+  </dl>
+
+</template>
+
+<template name="new_problem">
+  <div class="add-problem hide">
+    <h3> Add a problem </h3>
+    <form class="form-horizontal">
+      <div class="control-group">
+        <label class="control-label" for="problem-name">Problem </label>
+        <div class="controls">
+          <input type="text" placeholder="vent out here" id="problem-name">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="solution">Solution </label>
+        <div class="controls">
+          <textarea placeholder="Solution" id="solution"></textarea>
+        </div>
+      </div>    
+      <div class="control-group">
+        <div class="controls">
+          <input class="btn btn-large btn-success" type="submit" id="add-idea" value="Add Problem">
+        </div>
+      </div>
+    </form>
+  </div>
+</template>
+
+<template name="problem_info">
+  <div class="row problem-item" id="{{ _id }}">
+    <div class="vote-stats">
+      <div class="votes">{{votes}}</div>
+      <div class="btn-group votes-buttons">
+        <button class="btn btn-small vote-up"><i class="icon-arrow-up"></i></button>
+        <button class="btn btn-small vote-down"><i class="icon-arrow-down"></i></button>
+      </div>
+    </div>
+    <dt>{{name}}</dt>
+    {{#each solution}}
+      <dd><i class="icon-chevron-right"></i> <div class="content">{{this}}</div></dd>
+    {{/each}}
+    <dd class="adder-wrap"><button class="btn btn-small adder"><i class="icon-plus"></i></button></dd>
+    <dd class="add-new-comment hide">
+      <div class="input-prepend new-comment-box">
+        <span class="add-on"><i class="icon-plus"></i></span>
+        <input class="new-comment" type="text">
+      </div>
+    </dd> 
+  </div>
+</template>

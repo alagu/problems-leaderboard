@@ -1,0 +1,110 @@
+/* CSS declarations go here */
+
+body {
+  font-family: sans-serif;
+}
+
+h1,h2,h3 {
+  font-weight: normal;
+}
+
+body 
+{
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+.container-narrow {
+  margin: 0 auto;
+  max-width: 700px;
+}
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+
+.add-problem {
+  border: 1px solid #000;
+  padding: 10px;
+  padding-left: 90px;
+  border-radius: 5px;
+ 
+  .control-label {
+    width: 50px;
+  }
+
+  .controls {
+    margin-left: 80px;
+  }
+}
+
+.problems-list {
+  margin-left: 20px;
+  
+  .vote-stats {
+    float: left;
+    width: 56px;
+    
+    .votes {
+      font-size: 20px;
+      width: 50px;
+      height: 1.5em;
+      display: inline-block;
+      text-align: center;
+      margin-bottom: -5px;
+    } 
+  }
+
+  dd, dt {
+    margin-left: 80px;
+  }
+
+  dt {
+    font-size: 110%;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 5px;
+  }
+
+  dd {
+
+    i {
+      float: left;
+    }
+
+    .content {
+      margin-left: 20px;
+      font-family: tahoma;
+      font-size: 14px;
+    }
+  }
+
+  .votes-buttons {
+    float: left;
+    
+    .btn-small {
+      padding-left: 6px;
+      padding-right: 6px;
+    }
+  }
+
+  .problem-item {
+    margin-top: 25px;
+
+    .adder-wrap {
+      margin-top: 10px;
+      
+      .adder {
+        height: 30px;
+        width: 30px;
+        padding-left: 6px;
+      }
+    }
+
+    .add-new-comment {
+      margin-top: 10px;
+      input {
+      width: 590px;
+      }
+    }
+  }
+}
