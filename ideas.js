@@ -1,22 +1,16 @@
 Problems = new Meteor.Collection("problems")
 
-Problems.allow({
-  insert: function(userId) {
-    if (userId) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-})
+
 
 if (Meteor.isClient) {
 
+  Meteor.subscribe("problems");
+
   Template.problems_list.problems =  function() {
-    if(this.userId) {
-      return Problems.find({}, {sort: {votes: -1, name: 1}}) 
+    if(Meteor.userId()) {
+      return Problems.find({}, {sort: {votes: -1, name: 1}});  
     } else {
-      return [];
+      return 
     }
   }
 
@@ -61,6 +55,17 @@ if (Meteor.isClient) {
       $(parent).find('.add-new-comment').show();
       $(self).hide();
       $(parent).find('.add-new-comment input').focus();
+    },
+    'click .remove-problem': function(e) {
+      if(confirm('Remove entry?')) {
+        var self = $(e.target);
+        if (e.target.tagName == 'I')
+          self = $(self).parent();
+
+        var id = $(self).parent().parent().attr('id');
+        Problems.remove(id); 
+      }
+      return false;
     }
   })
 
@@ -85,4 +90,43 @@ if (Meteor.isServer) {
   Meteor.startup(function () {
     // code to run on server at startup
   });
+
+
+  var is_allowed = function(userId) {
+    var allowed = ['allagappan@gmail.com', 'rajagopal.n@gmail.com', 'alagu@markupwand.com', 'raj@markupwand.com','surenspost@gmail.com', 'suren@markupwand.com'];
+    var user = Meteor.users.findOne(userId);
+    debugger;
+    if (user) {
+      var email = user['services']['google']['email'];
+      
+      if (allowed.indexOf(email) == -1)
+        return false;
+      else
+        return true; 
+    } else {
+      return false;
+    }
+  };
+
+  Meteor.publish("problems", function () {
+    if(is_allowed(this.userId)) {
+      return Problems.find({}, {sort: {votes: -1, name: 1}});
+    }
+    else {
+      return Problems.find({name: '6a204bd89f3c8348afd5c77c717a097a' });
+    }
+  });
+
+
+
+  Problems.allow({
+    insert: function(userId) {
+      return is_allowed(userId);
+    },
+    remove: function(userId) {
+      return true;
+    }
+  });
+
+
 }

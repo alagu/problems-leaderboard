@@ -16,10 +16,10 @@
 </body>
 
 <template name="header">
-  {{loginButtons}}
   <div class="masthead">
     <ul class="nav nav-pills pull-right">
-      <li class="active"><a href="#" id="add-problem-btn">Add a problem</a></li>
+      <li><a href="#" id="add-problem-btn">Add a problem</a></li>
+      <li>{{loginButtons}}</li>
     </ul>
     <h3 class="muted">Problems</h3>
   </div>
@@ -39,23 +39,18 @@
 
 <template name="new_problem">
   <div class="add-problem hide">
-    <h3> Add a problem </h3>
     <form class="form-horizontal">
       <div class="control-group">
         <label class="control-label" for="problem-name">Problem </label>
         <div class="controls">
-          <input type="text" placeholder="vent out here" id="problem-name">
+          <input type="text" placeholder="Vent out here" id="problem-name">
         </div>
       </div>
       <div class="control-group">
         <label class="control-label" for="solution">Solution </label>
         <div class="controls">
-          <textarea placeholder="Solution" id="solution"></textarea>
-        </div>
-      </div>    
-      <div class="control-group">
-        <div class="controls">
-          <input class="btn btn-large btn-success" type="submit" id="add-idea" value="Add Problem">
+          <textarea placeholder="Solution" id="solution"></textarea> 
+          <input class="btn btn-large btn-success" type="submit" id="add-idea" value="Add">
         </div>
       </div>
     </form>
@@ -64,6 +59,7 @@
 
 <template name="problem_info">
   <div class="row problem-item" id="{{ _id }}">
+    <div class="pull-right"><a href="#" class="remove-problem"><i class="icon-remove"></i></a></div>
     <div class="vote-stats">
       <div class="votes">{{votes}}</div>
       <div class="btn-group votes-buttons">

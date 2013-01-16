@@ -1,4 +1,13 @@
 /* CSS declarations go here */
+.css-gradient(@from: #20416A, @to: #3D69A5) {
+    background-color: @to;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(@from),  to(@to));
+    background-image: -webkit-linear-gradient(top, @from, @to);
+    background-image: -moz-linear-gradient(top, @from, @to);
+    background-image: -o-linear-gradient(top, @from, @to);
+    background-image: -ms-linear-gradient(top, @from, @to);
+    background-image: linear-gradient(top, @from, @to);
+}
 
 body {
   font-family: sans-serif;
@@ -22,17 +31,53 @@ body
   margin: 30px 0;
 }
 
+#login-buttons {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  border-radius: 5px;
+  padding-right: 12px;
+  padding-left: 12px;
+  margin-right: 2px;
+  line-height: 14px;
+
+  .login-button {
+    .css-gradient(#ffffff, #e6e6e6);
+    border-color: rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.25);
+    color: #333;
+    text-shadow: none;
+    box-shadow: none;
+  }
+
+  .login-button:active, .login-button:hover {
+    background-image: none;
+    background-color: #e6e6e6;
+  }
+}
+
 
 .add-problem {
-  border: 1px solid #000;
-  padding: 10px;
-  padding-left: 90px;
+  border: 1px solid #eee;
   border-radius: 5px;
+  padding: 10px;
  
   .control-label {
     width: 50px;
   }
 
+  #problem-name {
+    width: 560px;
+  }
+
+  #solution {
+    width: 480px;
+  }
+
+  #add-idea {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
   .controls {
     margin-left: 80px;
   }
