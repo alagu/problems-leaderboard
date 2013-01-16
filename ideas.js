@@ -120,12 +120,9 @@ if (Meteor.isServer) {
 
 
   Problems.allow({
-    insert: function(userId) {
-      return is_allowed(userId);
-    },
-    remove: function(userId) {
-      return true;
-    }
+    insert: is_allowed,
+    remove: is_allowed,
+    update: is_allowed
   });
 
 
