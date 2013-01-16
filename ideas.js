@@ -1,16 +1,30 @@
-Problems = new Meteor.Collection("problems-list")
+Problems = new Meteor.Collection("problems")
+
+Problems.allow({
+  insert: function(userId) {
+    if (userId) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+})
 
 if (Meteor.isClient) {
 
   Template.problems_list.problems =  function() {
-    return Problems.find({}, {sort: {votes: -1, name: 1}})
+    if(this.userId) {
+      return Problems.find({}, {sort: {votes: -1, name: 1}}) 
+    } else {
+      return [];
+    }
   }
 
   Template.new_problem.events({
     'click #add-idea' : function(e) {
       var problem = $('#problem-name').val();
       var solution = $('#solution').val();
-      Problems.insert({name: problem, solution: [solution], votes: 0});
+      Problems.insert({name: problem, owner: this.userId,  solution: [solution], votes: 0});
       $('#problem-name').val('');
       $('#solution').val('');
       $('.add-problem').hide('fast');
