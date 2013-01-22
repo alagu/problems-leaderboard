@@ -35,7 +35,17 @@ if (Meteor.isClient) {
         alert("Enter something");
       }
       else {
-        Problems.insert({name: problem, owner: this.userId,  solution: [{txt: solution, user: this.userId}], votes: 0}); 
+        var id = Problems.insert({name: problem,
+          owner: this.userId,
+          solution: [{txt: solution, user: this.userId}],
+          votes: 0}, function(data) {
+            if(data != undefined && data.hasOwnProperty('error')) {
+              alert(data['error'] + '  ' + data['reason'] + ' Please login.');
+            }
+          });
+        if($('#'+ id)) {
+          $('#' + id).ScrollTo();
+        }
         $('#problem-name').val('');
         $('#solution').val('');
         $('.add-problem').hide('fast');
@@ -98,7 +108,7 @@ if (Meteor.isClient) {
 
       if($(e.target).parent().hasClass('vote-up'))
         Problems.update(id, {$inc: {votes: 1}});
-      else
+      else if ($(e.target).parent().hasClass('vote-down'))
         Problems.update(id, {$inc: {votes: -1}});
     }
   });
@@ -111,13 +121,11 @@ if (Meteor.isServer) {
 
 
   var is_allowed = function(userId) {
-    var allowed = ['allagappan@gmail.com', 'rajagopal.n@gmail.com', 'alagu@markupwand.com', 'raj@markupwand.com','surenspost@gmail.com', 'suren@markupwand.com'];
     var user = Meteor.users.findOne(userId);
-    debugger;
     if (user) {
       var email = user['services']['google']['email'];
       
-      if (allowed.indexOf(email) == -1)
+      if (allowed_users.indexOf(email) == -1)
         return false;
       else
         return true; 
